@@ -52,12 +52,17 @@ trait Encryptable
      *
      * @param $value
      *
-     * @return string
+     * @return string|null
      * @throws \Exception
      */
     public function decryptAttribute($value)
     {
-       return $value ? $this->encrypter()->decrypt($value) : '';
+        // Handle nullable attributes
+        if ($value === null) {
+            return null;
+        }
+
+        return $value ? $this->encrypter()->decrypt($value) : '';
     }
 
     /**
@@ -71,11 +76,17 @@ trait Encryptable
 
     /**
      * @param $value
-     * @return string
+     *
+     * @return string|null
      * @throws \Exception
      */
     public function encryptAttribute($value)
     {
+        // Handle nullable attributes
+        if ($value === null) {
+            return null;
+        }
+
         return $value ? $this->encrypter()->encrypt(strtolower($value)) : '';
     }
 
