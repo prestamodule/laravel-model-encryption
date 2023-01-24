@@ -12,7 +12,7 @@ trait Encryptable
      */
     public function encrypter()
     {
-        if(! $this->magrosEncrypter){
+        if (!$this->magrosEncrypter) {
             $this->magrosEncrypter = new Encrypter();
         }
         return $this->magrosEncrypter;
@@ -32,7 +32,7 @@ trait Encryptable
      */
     public function encryptable($key)
     {
-        if(self::$enableEncryption){
+        if (self::$enableEncryption) {
             return in_array($key, $this->encryptable);
         }
         return false;
@@ -153,7 +153,7 @@ trait Encryptable
     public function newBaseQueryBuilder()
     {
         $connection = $this->getConnection();
-        
+
         return new EncryptableQueryBuilder($connection, $this);
     }
 }
