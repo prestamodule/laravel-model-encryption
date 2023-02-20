@@ -62,7 +62,12 @@ trait Encryptable
             return null;
         }
 
-        return $value ? $this->encrypter()->decrypt($value) : '';
+        // Handle unencrypted attribute values which could return false instead of their original value
+        if ($value) {
+            return $this->encrypter()->decrypt($value) ?: $value;
+        }
+
+        return '';
     }
 
     /**
